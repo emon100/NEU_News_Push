@@ -3,7 +3,7 @@ name: NEU_News_Push
 on: 
   push:
   schedule: #设置定时执行和在推送时执行
-   - cron: '*/5 7-23/1 * * *'
+   - cron: '*/5  0-8,16-24/1 * * *'
 
 jobs:
   Monitor:
@@ -17,8 +17,8 @@ jobs:
       uses: emon100/Github_Action_Monitor_Webpage@v1
       id: dataWork
       with:
-        prevInfoPath: '../prevContent.json'
-        configPath: '../config'
+        prevInfoPath: ${{github.workspace}}/prevContent.json
+        configPath:  ${{github.workspace}}/config
 
     - name: ServerChan Notify new stuffs.
       uses: yakumioto/serverchan-action@v1
@@ -30,3 +30,12 @@ jobs:
         text: ${{ steps.dataWork.outputs.title }}
         # Message content
         desp: ${{ steps.dataWork.outputs.markdownText }}
+
+    - name: Get date
+      run: echo "::set-env name=REPORT_DATE::$(TZ=':Asia/Shanghai' date '+%Y-%m-%d %T')"
+
+    - name: Git Auto Commit
+      uses: stefanzweifel/git-auto-commit-action@v3.0.0
+      with:
+    # Commit message
+        commit_message: ${{ env.REPORT_DATE }}
