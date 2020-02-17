@@ -33,7 +33,7 @@ const sitesConfig = {
     '计算机学院官网': {
         type: "html",
         protocol: "http",
-        siteUrl: "http://www.cse.neu.edu.cn/",
+        siteHost: "http://www.cse.neu.edu.cn/",
         parts: {
             '通知公告': {
                 //自己定义的json反序列化之后的对象的处理函数，输出字符串。
