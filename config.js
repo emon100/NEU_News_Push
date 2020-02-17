@@ -4,9 +4,9 @@ const headers = {
 
 const sitesConfig = {
     '东大创新网': {
-        type: "http",
-        siteUrl: "cxzx.neu.edu.cn",
-        path: "/main.htm",
+        type: "html",
+        protocol: "http",
+        siteHost: "http://cxzx.neu.edu.cn/",
         parts: {
             '通知公告': {
                 selector: ['#tzlist li:first-child div']
@@ -14,9 +14,9 @@ const sitesConfig = {
         }
     },
     '计算机学院官网': {
-        type: "http",
-        siteUrl: "www.cse.neu.edu.cn",
-        path: '/',
+        type: "html",
+        protocol: "http",
+        siteHost: "http://www.cse.neu.edu.cn/",
         parts: {
             '通知公告': {
                 processor: function ($) {
@@ -28,9 +28,9 @@ const sitesConfig = {
         }
     },
     '东大教务处官网': {
-        type: "http",
-        siteUrl: "aao.neu.edu.cn",
-        path: "/",
+        type: "html",
+        protocol: "http",
+        siteHost: "http://aao.neu.edu.cn/",
         parts: {
             '通知': {
                 selector: ['[frag="窗口51"] div:first-child+div span font']
@@ -45,6 +45,3 @@ const sitesConfig = {
         }
     }
 };
-
-module.exports.config = sitesConfig;
-module.exports.headers = headers;
