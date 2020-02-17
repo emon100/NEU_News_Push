@@ -29,25 +29,6 @@ const sitesConfig = {
                 }
             }
         }
-    },
-    '热榜':{
-        type:'json',
-        protocol:'https',
-        siteHost:'https://www.tophub.fun:8888/v2/GetAllInfoGzip?id=59&page=0',
-        parts:{
-            '第一个':{
-                //自己定义的json反序列化之后的对象的处理器，输出字符串。
-                processor: function (obj) {
-                    let result;
-                    if(obj != null && obj.Code===0){
-                        result = `${ unescape(obj['Data']['data'][0]['Title']) } : ${ unescape(obj['Data']['data'][0]['hotDesc']) }`;
-                    }else {
-                        result = 'api访问错误';
-                    }
-                    return result;
-                }
-            }
-        }
     }
 };
 
