@@ -2,7 +2,7 @@ name: NEU_News_Push
 
 on: 
   push:
-  schedule: 
+  schedule: #设置定时执行和在推送时执行
    - cron: '*/5 7-23/1 * * *'
 
 jobs:
@@ -13,9 +13,20 @@ jobs:
     steps:
     - name: Checkout previous content and config
       uses: actions/checkout@v2
-    - name: Run a one-line script
-      run: echo Hello, world!
-    - name: Run a multi-line script
-      run: |
-        echo Add other actions to build,
-        echo test, and deploy your project.
+    - name: Do data work.
+      uses: emon100/Github_Action_Monitor_Webpage
+      id: dataWork
+      with:
+        prevInfoPath: '../prevContent.json'
+        configPath: '../config'
+
+    - name: ServerChan Notify new stuffs.
+      uses: yakumioto/serverchan-action@v1
+      if: steps.dataWork.outputs.changed == 'true'
+      with:
+        # Secret key
+        key: ${{ secrets.SCKEY_emon100 }}
+        # Message title
+        text: ${{ steps.dataWork.outputs.title }}
+        # Message content
+        desp: ${{ steps.dataWork.outputs.markdownText }}
