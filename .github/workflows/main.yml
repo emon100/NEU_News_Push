@@ -14,7 +14,7 @@ jobs:
     - name: Checkout previous content and config
       uses: actions/checkout@v2
     - name: Do data work.
-      uses: emon100/Github_Action_Monitor_Webpage
+      uses: emon100/Github_Action_Monitor_Webpage@master
       id: dataWork
       with:
         prevInfoPath: '../prevContent.json'
