@@ -1,7 +1,7 @@
 name: NEU_News_Push
 
 on: 
- # push:
+  push:
   schedule: #设置定时执行和在推送时执行
    - cron: '0 0-16 * * *'
 
@@ -34,7 +34,8 @@ jobs:
     - name: echo diff
       if: steps.dataWork.outputs.changed == 'true'
       run: |
-        echo ${{ steps.dataWork.outputs.pureText }}
+        cat<<EOF
+        ${{ steps.dataWork.outputs.pureText }}
         EOF
 
     - name: Get date
