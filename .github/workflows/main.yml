@@ -20,31 +20,44 @@ jobs:
         prevInfoPath: ${{github.workspace}}/prevContent.json
         configPath:  ${{github.workspace}}/config
 
-    - name: ServerChan Notify new stuffs.
-      uses: yakumioto/serverchan-action@v1
+    - name: ServerChan Notify new stuffs to emon.
+      uses: emon100/Action-Serverchan@v1
       if: steps.dataWork.outputs.changed == 'true'
       with:
         # Secret key
-        key: ${{ secrets.SCKEY_emon100 }}
+        SCKEY: ${{ secrets.SCKEY_emon100 }}
         # Message title
         text: ${{ steps.dataWork.outputs.title }}
         # Message content
         desp: ${{ steps.dataWork.outputs.markdownText }}
     
+    - name: ServerChan Notify new stuffs to Elizabeth.
+      uses: emon100/Action-Serverchan@v1
+      if: steps.dataWork.outputs.changed == 'true'
+      with:
+        # Secret key
+        SCKEY: ${{ secrets.SCKEY_Elizabeth }}
+        # Message title
+        text: ${{ steps.dataWork.outputs.title }}
+        # Message content
+        desp: ${{ steps.dataWork.outputs.markdownText }}
     - name: echo diff
       if: steps.dataWork.outputs.changed == 'true'
       run: |
         cat<<EOF
         ${{ steps.dataWork.outputs.pureText }}
         EOF
-
+      
     - name: Get date
       run: echo "::set-env name=REPORT_DATE::$(TZ=':Asia/Shanghai' date '+%Y-%m-%d %T')"
       
-
-
-    - name: Git Auto Commit
-      uses: stefanzweifel/git-auto-commit-action@v3.0.0
+    - name: When push, notify me.
+      if: steps.dataWork.outputs.changed == 'false' && github.event_name == 'push'
+      
+      
+    - name: Add & Commit
+      uses: EndBug/add-and-commit@v3.0.0
       with:
-    # Commit message
-        commit_message: ${{ env.REPORT_DATE }}
+       message: ${{ env.REPORT_DATE }} # optional, default is Commit from GitHub Actions
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Leave this line unchanged
