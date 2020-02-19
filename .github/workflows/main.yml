@@ -1,7 +1,7 @@
 name: NEU_News_Push
 
 on: 
-  push:
+ # push:
   schedule: #设置定时执行和在推送时执行
    - cron: '0 0-16 * * *'
 
@@ -30,9 +30,17 @@ jobs:
         text: ${{ steps.dataWork.outputs.title }}
         # Message content
         desp: ${{ steps.dataWork.outputs.markdownText }}
+    
+    - name: echo diff
+      if: steps.dataWork.outputs.changed == 'true'
+      run: |
+        echo ${{ steps.dataWork.outputs.pureText }}
+        EOF
 
     - name: Get date
       run: echo "::set-env name=REPORT_DATE::$(TZ=':Asia/Shanghai' date '+%Y-%m-%d %T')"
+      
+
 
     - name: Git Auto Commit
       uses: stefanzweifel/git-auto-commit-action@v3.0.0
