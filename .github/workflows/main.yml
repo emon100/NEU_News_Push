@@ -1,7 +1,7 @@
 name: NEU_News_Push
 
 on: 
-  push:
+  #push:
   schedule: #设置定时执行和在推送时执行
    - cron: '0 0-16 * * *'
 
@@ -15,7 +15,7 @@ jobs:
       uses: actions/checkout@v2
     
     - name: Do data work.
-      uses: emon100/Github_Action_Monitor_Webpage@v2
+      uses: emon100/Github_Action_Monitor_Webpage@v3
       id: dataWork
       with:
         prevInfoPath: ${{github.workspace}}/prevContent.json
