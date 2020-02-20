@@ -46,7 +46,7 @@ const sitesConfig = {
             }
         }
     },
-'东大BB': {
+    '东大BB': {
         type: "json",
         getResponse: function () {
             //POST发送用户名，密码https://bb.neu.edu.cn/webapps/login/，
@@ -72,13 +72,13 @@ const sitesConfig = {
                         if (encoding === 'undefined') {
                             res1.setEncoding('utf-8');
                         }
-                        console.log(`Step1 code: ${res1.statusCode}\n ${res1.rawHeaders}\n}`);
+                        console.log(`Step1 code: ${res1.statusCode}\n \n}`);
 
                         newHeaders.Cookie = res1.headers["set-cookie"];
 
                         newHeaders['Host'] = 'bb.neu.edu.cn';
 
-                        console.log(newHeaders.Cookie);
+                        //console.log(newHeaders.Cookie);
 
                         //第二步
                         let postData2 = 'cmd=loadStream&streamName=alerts&providers=%7B%7D&forOverview=false';
@@ -91,6 +91,7 @@ const sitesConfig = {
                                 timeout: 30000
                             },
                             res2 => {
+                                console.log(`Step2 code: ${res2.statusCode}\n \n}`);
                                 const encoding = res2.headers['content-encoding'];
                                 if (encoding === 'undefined') {
                                     res2.setEncoding('utf-8');
@@ -98,7 +99,7 @@ const sitesConfig = {
 
                                 newHeaders.Cookie = res2.headers["set-cookie"];
 
-                                console.log(newHeaders.Cookie);
+                                //console.log(newHeaders.Cookie);
 
                                 //第三步
                                 let request3 = https.request('https://bb.neu.edu.cn/webapps/streamViewer/streamViewer', {
@@ -108,6 +109,7 @@ const sitesConfig = {
                                         timeout: 30000
                                     },
                                     res3 => {
+                                        console.log(`Step3 code: ${res3.statusCode}\n \n}`);
                                         const encoding = res3.headers['content-encoding'];
                                         if (encoding === 'undefined') {
                                             res3.setEncoding('utf-8');
