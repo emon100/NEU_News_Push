@@ -1,7 +1,7 @@
 name: NEU_News_Push
 
 on: 
-  push:
+  # push:
   schedule: #设置定时执行和在推送时执行
    - cron: '0 0-16 * * *'
 
@@ -30,6 +30,9 @@ jobs:
         text: ${{ steps.dataWork.outputs.title }}
         # Message content
         desp: ${{ steps.dataWork.outputs.markdownText }}
+      env: 
+        STUDENT_ID: ${{ secrets.STUDENT_ID }}
+        BB_PASSWORD: ${{ secrets.BB_PASSWORD }}
     
     - name: ServerChan Notify new stuffs to Elizabeth.
       uses: emon100/Action-Serverchan@v1
