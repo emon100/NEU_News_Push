@@ -20,7 +20,10 @@ jobs:
       with:
         prevInfoPath: ${{github.workspace}}/prevContent.json
         configPath:  ${{github.workspace}}/config
-
+      env: 
+        STUDENT_ID: ${{ secrets.STUDENT_ID }}
+        BB_PASSWORD: ${{ secrets.BB_PASSWORD }}
+    
     - name: ServerChan Notify new stuffs to emon.
       uses: emon100/Action-Serverchan@v1
       if: steps.dataWork.outputs.changed == 'true'
@@ -31,9 +34,6 @@ jobs:
         text: ${{ steps.dataWork.outputs.title }}
         # Message content
         desp: ${{ steps.dataWork.outputs.markdownText }}
-      env: 
-        STUDENT_ID: ${{ secrets.STUDENT_ID }}
-        BB_PASSWORD: ${{ secrets.BB_PASSWORD }}
     
     - name: ServerChan Notify new stuffs to Elizabeth.
       uses: emon100/Action-Serverchan@v1
@@ -57,11 +57,12 @@ jobs:
       
     - name: When push, notify me.
       if: steps.dataWork.outputs.changed == 'false' && github.event_name == 'push'
-      run: 'curl https://sc.ftqq.com/${{ secrets.SCKEY_emon100 }}.send?text=Pushed20%A20%New20%Version'
+      run: 'curl https://sc.ftqq.com/${{ secrets.SCKEY_emon100 }}.send?text=Pushed%20A%20New%20Version'
       
     - name: Add & Commit
       uses: EndBug/add-and-commit@v3.0.0
       with:
-       message: ${{ env.REPORT_DATE }} # optional, default is Commit from GitHub Actions
+        author_name: emon
+        message: ${{ env.REPORT_DATE }} # optional, default is Commit from GitHub Actions
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Leave this line unchanged
