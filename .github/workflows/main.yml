@@ -1,9 +1,9 @@
 name: NEU_News_Push
 
 on: 
-  #push:
+  push:
   schedule: #设置定时执行和在推送时执行
-   - cron: '0 0-16 * * *'
+   - cron: '0/30 0-15 * * *'
 
 jobs:
   Monitor:
