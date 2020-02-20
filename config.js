@@ -72,7 +72,7 @@ const sitesConfig = {
                         if (encoding === 'undefined') {
                             res1.setEncoding('utf-8');
                         }
-                        console.log(`Step1 code: ${res1.statusCode}\n \n}`);
+                        console.log(`Step1 code: ${res1.statusCode}`);
 
                         newHeaders.Cookie = res1.headers["set-cookie"];
 
@@ -91,7 +91,7 @@ const sitesConfig = {
                                 timeout: 30000
                             },
                             res2 => {
-                                console.log(`Step2 code: ${res2.statusCode}\n \n}`);
+                                console.log(`Step2 code: ${res2.statusCode}`);
                                 const encoding = res2.headers['content-encoding'];
                                 if (encoding === 'undefined') {
                                     res2.setEncoding('utf-8');
@@ -109,7 +109,7 @@ const sitesConfig = {
                                         timeout: 30000
                                     },
                                     res3 => {
-                                        console.log(`Step3 code: ${res3.statusCode}\n \n}`);
+                                        console.log(`Step3 code: ${res3.statusCode}`);
                                         const encoding = res3.headers['content-encoding'];
                                         if (encoding === 'undefined') {
                                             res3.setEncoding('utf-8');
@@ -158,8 +158,8 @@ const sitesConfig = {
                     });
 
                 request1.write(postData1);
-                request1.on('BB: Step1 error '+'error', (e) => {
-                    reject(e);
+                request1.on('error', (e) => {
+                    reject('BB: Step1 error '+e);
                 });
                 request1.end();
             });
