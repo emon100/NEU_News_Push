@@ -45,8 +45,9 @@ const sitesConfig = {
                 }
             }
         }
-    },
-    '东大BB': {
+    }
+/*
+    ,'东大BB': {
         type: "json",
         getResponse: function () {
             //POST发送用户名，密码https://bb.neu.edu.cn/webapps/login/，
@@ -196,6 +197,7 @@ const sitesConfig = {
             }
         }
     }
+*/
 };
 
 module.exports.config = sitesConfig;
