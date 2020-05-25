@@ -10,7 +10,7 @@ const sitesConfig = {
             '通知公告': {
                 maxLength: 9,
                 //cheerio的dom元素选择器语法，类似jQuery的选择器和CSS Selector语法
-                selector: ['#tzlist li:first-child div']
+                selector: '#tzlist li div'
             }
         }
     },
@@ -21,15 +21,15 @@ const sitesConfig = {
         parts: {
             '通知': {
                 maxLength: 3,
-                selector: ['[frag="窗口51"] div:first-child+div span font']
+                selector: '[frag="窗口51"] div+div a span'
             },
             '公告': {
                 maxLength: 3,
-                selector: ['[frag="窗口6"] div:first-child+div']
+                selector: '[frag="窗口6"] div+div'
             },
             '教学研究': {
                 maxLength: 10,
-                selector: ['[frag="窗口9"] li:first-child']
+                selector: '[frag="窗口9"] li'
             }
         }
     },
@@ -38,11 +38,18 @@ const sitesConfig = {
         siteURL: "http://www.cse.neu.edu.cn/",
         parts: {
             '通知公告': {
-                maxLength: 6,
+                maxLength: 10,
                 //自己定义的json反序列化之后的对象的处理函数，输出字符串。
-                processor: function ($) {
-                    let result = $('[frag="窗口76"] .con .news_list li:first-child span a').text() + ' ';
-                    result += $('[frag="窗口76"] .con .news_list li:first-child span:last-child').text();
+                processor: function (dom) {
+                    let domList = dom.window.document.querySelectorAll('[frag="窗口76"] .con .news_list li');
+                    let result = [];
+
+                    for (const node of domList) {
+                        result.push(`${node.children[0].children[0].textContent} ${node.children[1].textContent}`);
+                        if(result.length>=this.maxLength){
+                            break;
+                        }
+                    }
                     return result;
                 }
             }
