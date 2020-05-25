@@ -5,10 +5,11 @@ const headers = {
 const sitesConfig = {
     '东大创新网': {
         type: "html",
-        protocol: "http",
-        siteHost: "http://cxzx.neu.edu.cn/main.htm",
+        siteURL: "http://cxzx.neu.edu.cn/main.htm",
         parts: {
             '通知公告': {
+                maxLength: 9,
+                //cheerio的dom元素选择器语法，类似jQuery的选择器和CSS Selector语法
                 selector: ['#tzlist li:first-child div']
             }
         }
@@ -16,27 +17,28 @@ const sitesConfig = {
     '东大教务处官网': {
         //type有html和json两种。
         type: "html",
-        protocol: "http",
-        siteHost: "http://aao.neu.edu.cn/",
+        siteURL: "http://aao.neu.edu.cn/",
         parts: {
             '通知': {
+                maxLength: 3,
                 selector: ['[frag="窗口51"] div:first-child+div span font']
             },
             '公告': {
+                maxLength: 3,
                 selector: ['[frag="窗口6"] div:first-child+div']
             },
             '教学研究': {
-                //cheerio的dom元素选择器语法，类似jQuery的选择器和CSS Selector语法
+                maxLength: 10,
                 selector: ['[frag="窗口9"] li:first-child']
             }
         }
     },
     '计算机学院官网': {
         type: "html",
-        protocol: "http",
-        siteHost: "http://www.cse.neu.edu.cn/",
+        siteURL: "http://www.cse.neu.edu.cn/",
         parts: {
             '通知公告': {
+                maxLength: 6,
                 //自己定义的json反序列化之后的对象的处理函数，输出字符串。
                 processor: function ($) {
                     let result = $('[frag="窗口76"] .con .news_list li:first-child span a').text() + ' ';
