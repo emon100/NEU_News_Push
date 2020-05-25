@@ -15,7 +15,7 @@ jobs:
       uses: actions/checkout@v2
     
     - name: Do data work.
-      uses: emon100/Github_Action_Monitor_Webpage@v4.1
+      uses: emon100/Github_Action_Monitor_Webpage@v4.3
       id: dataWork
       with:
         prevInfoPath: ${{github.workspace}}/prevContent.json
